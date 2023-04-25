@@ -1,0 +1,39 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav> 
+    <mat-nav-list>
+        <a mat-list-item routerLink="/login" *ngIf="!(loggedInUser)" (click)="onClose(sidenav)">
+            <mat-icon>login</mat-icon>
+            <span>Bejelentkezés</span>
+        </a>
+        <a mat-list-item routerLink="/login" *ngIf="(loggedInUser)" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Kijelentkezés</span>
+      </a>
+  
+        <a mat-list-item routerLink="/signup" *ngIf="!(loggedInUser)" (click)="onClose(sidenav)">
+            <mat-icon>app_registration</mat-icon>
+            <span>Regisztráció</span>
+        </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div fxHide.gt-xs>
+        <button mat-icon-button (click)="onToggleSidenav(sidenav)">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div>Todo Application</div>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+        <ul fxLayout fxLayoutGap="10px" class="nav_items">
+          <li *ngIf="!(loggedInUser)"><a routerLink="/login">Bejelentkezés</a></li>
+          <li *ngIf="(loggedInUser)"><a routerLink="/login" (click)="logout()">Kijelentkezés</a></li>
+          <li *ngIf="!(loggedInUser)"><a routerLink="/signup">Regisztració</a></li>
+        </ul>
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

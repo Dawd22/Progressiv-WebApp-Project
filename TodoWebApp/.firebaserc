@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "todoapplication-f75d9": {
+      "hosting": {
+        "TodoWebApp": [
+          "todoapplication-f75d9"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "todoapplication-f75d9"
+  }
+}
