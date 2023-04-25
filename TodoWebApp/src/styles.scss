@@ -1,4 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+a{
+    text-decoration: none;
+    color: white;
+
+}
+a:hover, a:active{
+text-decoration: underline;
+}
+.nav_items{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: white;
+
+}
+mat-sidenav{
+    width: 180px;
+    height: auto;
+}
+
+html, body { height: 100%; }
+    body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: black; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

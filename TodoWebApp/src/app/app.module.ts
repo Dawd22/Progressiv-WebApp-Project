@@ -16,7 +16,7 @@ import {AngularFireModule} from '@angular/fire/compat';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 @NgModule({
   declarations: [
     AppComponent
@@ -31,6 +31,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     MatIconModule,
     FlexLayoutModule,
     MatListModule,
+    MatDatepickerModule,
     AngularFireModule.initializeApp(environment.firebase),
     //provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

@@ -1,0 +1,22 @@
+#todo{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    align-items:center;
+    margin-bottom: 1000px;
+}
+form{
+    display: inline-grid;
+}
+h1{
+    font-size: 35px;
+    text-align: center;
+    text-decoration: overline;
+    font-style: italic;
+}
+body{
+    margin: 0;
+}

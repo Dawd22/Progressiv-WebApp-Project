@@ -1,0 +1,20 @@
+
+<div id="todo">
+    <h1>Todo hozzáadás</h1>
+        <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+            <mat-form-field> 
+                <mat-label for="title">Feladat neve</mat-label>
+                <input matInput type="text" formControlName="title">
+            </mat-form-field>
+            <mat-form-field> 
+                <mat-label for="description">Feladat leírás</mat-label>
+                <input matInput type="text" formControlName="description">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label for="deadline">Határidő</mat-label>
+                <input matInput type="date" formControlName="deadline">
+            </mat-form-field>
+            <button mat-raised-button >Hozzáadás</button>
+        </form>    
+    </div>
+    
