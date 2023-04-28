@@ -9,7 +9,7 @@ import { switchMap } from 'rxjs';
 })
 export class TodoService {
   collectionName = 'Todos';
-  constructor(private afs: AngularFirestore, private authService: AuthService) { }
+  constructor(private afs: AngularFirestore) { }
 
 
   create(todo: Todo) {
@@ -19,11 +19,11 @@ export class TodoService {
       .set(todo);
   }
 
-  getTodosByUserId(userId:string){
+  getTodosByUserEmail(userEmail:string){
     const userTodosCollection = this.afs
     .collection<Todo>(this.collectionName, 
       ref =>{
-        return ref.where('user_id','==',userId);
+        return ref.where('user_email','==',userEmail);
       })
       return userTodosCollection.valueChanges();
   }

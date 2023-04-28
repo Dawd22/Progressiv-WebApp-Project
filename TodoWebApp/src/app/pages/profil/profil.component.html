@@ -1,5 +1,44 @@
+<div id="todo" *ngIf="!add">
+<button mat-raised-button color=primary (click)="changeAddTodo()">
+    <span>Új feladat hozzáadása</span>
+    <mat-icon>add_box</mat-icon>
+  </button>
 
-<div id="todo">
+  <div *ngFor="let item of todos |async">
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Neve</th>
+            <th>Leírás</th>
+            <th>Határidő</th>
+        </tr>
+        <tr>
+            <td>
+                {{item.id}}
+            </td>
+            <td>
+                {{item.title}}
+            </td>
+            <td>
+                {{item.description}}
+            </td>
+            <td>
+                {{item.deadline | timetoDate}}
+            </td>
+        </tr>
+    </table>
+    </div>
+    
+</div>
+
+
+
+
+
+<!-- 
+    Todo hozzáadása cuccos
+-->
+<div id="todo" *ngIf="add">
     <h1>Todo hozzáadás</h1>
         <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
             <mat-form-field> 
@@ -8,13 +47,17 @@
             </mat-form-field>
             <mat-form-field> 
                 <mat-label for="description">Feladat leírás</mat-label>
-                <input matInput type="text" formControlName="description">
+                <textarea matInput placeholder="Leírás" formControlName="description" rows="8"></textarea>
             </mat-form-field>
             <mat-form-field>
                 <mat-label for="deadline">Határidő</mat-label>
                 <input matInput type="date" formControlName="deadline">
             </mat-form-field>
             <button mat-raised-button >Hozzáadás</button>
+            <br>
+            <button mat-raised-button color=primary (click)="changeAddTodo()">
+                <span>Mégse</span>
+              </button>
         </form>    
     </div>
     

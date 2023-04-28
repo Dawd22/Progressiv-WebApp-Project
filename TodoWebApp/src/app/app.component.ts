@@ -25,6 +25,7 @@ export class AppComponent {
       }
     );
   }
+  
   logout() {
     this.authService.logout().then(() => {
       console.log('Kijelentkeztél');

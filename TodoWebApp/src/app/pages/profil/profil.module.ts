@@ -8,10 +8,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { TimetoDatePipe } from '../../shared/pipes/timeto-date.pipe';
 
 @NgModule({
   declarations: [
-    ProfilComponent
+    ProfilComponent,
+    TimetoDatePipe
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatIconModule,
+    
   ]
 })
 export class ProfilModule { }
