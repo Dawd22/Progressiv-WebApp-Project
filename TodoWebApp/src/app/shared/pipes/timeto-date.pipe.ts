@@ -1,7 +1,5 @@
-import { Time } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { timestamp } from 'rxjs';
 
 
 @Pipe({

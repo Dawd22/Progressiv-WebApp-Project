@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../models/todo';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AuthService } from './auth.service';
-import { switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +22,7 @@ export class TodoService {
     .collection<Todo>(this.collectionName, 
       ref =>{
         return ref.where('user_email','==',userEmail);
-      })
+      });
       return userTodosCollection.valueChanges();
   }
   getAll() {
