@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { TimetoDatePipe } from '../../shared/pipes/timeto-date.pipe';
-
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [
     ProfilComponent,
@@ -26,7 +26,7 @@ import { TimetoDatePipe } from '../../shared/pipes/timeto-date.pipe';
     MatButtonModule,
     MatDatepickerModule,
     MatIconModule,
-    
+    MatCardModule
   ]
 })
 export class ProfilModule { }

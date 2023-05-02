@@ -1,13 +1,32 @@
 #todo{
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
     justify-content:center;
     padding: 20px;
-    max-width: 500px;
+    width: 40%;
     margin: 20px auto;
     align-items:center;
     margin-bottom: 1000px;
 }
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }  
+  td, th {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    color:azure
+  }
 form{
     display: inline-grid;
 }
@@ -20,3 +39,20 @@ h1{
 body{
     margin: 0;
 }
+#button_container{
+  padding: 20px;
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  gap:20px;
+
+}
+#elem{
+  display: flex;
+    flex-direction:column;
+    justify-content:center;
+    padding: 20px;
+    margin: 20px auto;
+    align-items:center;
+}
+

@@ -18,7 +18,6 @@ export class ProfilComponent implements OnInit {
     description: new FormControl('', Validators.required),
     deadline: new FormControl('', Validators.required),
   });
-
   private userEmail: Observable<string | null>;
   public add = false;
   public todos: Observable<Todo[]>;
@@ -29,6 +28,16 @@ export class ProfilComponent implements OnInit {
     private router: Router,
     private afs: AngularFirestore
   ) {
+
+    const todo: Todo = {
+      id: '',
+      title: "title",
+      description:" description",
+      completed: false,
+      user_email: '',
+      deadline: new Timestamp(new Date().getTime() / 1000, 0),
+    };
+
     this.todos = this.todoService.getAll();
     this.todos$ = this.todoService.getAll();
     this.userEmail = this.authService.getCurrentUserEmail();
@@ -66,15 +75,18 @@ export class ProfilComponent implements OnInit {
         alert('Tölts ki minden mezőt');
         userEmailSubscription.unsubscribe();
       } else {
+        const date = new Date(deadline);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
         const todo: Todo = {
           id: '',
           title: title,
           description: description,
           completed: false,
           user_email: email?.toString() || '',
-          deadline: new Timestamp(new Date(deadline).getTime() / 1000, 0),
+          deadline: new Timestamp(date.getTime() / 1000, 0),
         };
-
         if (!(todo.deadline.toDate() < new Date())) {
           todo.id = this.afs.createId();
           this.todoService
@@ -99,4 +111,26 @@ export class ProfilComponent implements OnInit {
   changeAddTodo(): void {
     this.add = !this.add;
   }
+  changeCompletedTodo(id: string): void {
+    const sub = this.todoService.getById(id).subscribe((todo) => {
+      if (todo) {
+        const com = !todo.completed;
+        todo.completed = com;
+        this.todoService.update(todo);
+        sub.unsubscribe();
+      }
+    });
+  }
+
+  deleteTodo(id: string): void {
+    this.todoService
+      .delete(id)
+      .then(() => {
+        alert('Sikeres törlés!');
+      })
+      .catch(() => {
+        alert('Hiba történt!');
+      });
+  }
+
 }
