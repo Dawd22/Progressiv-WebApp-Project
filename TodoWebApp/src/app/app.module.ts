@@ -17,7 +17,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +25,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js',{enabled: environment.production}),
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
