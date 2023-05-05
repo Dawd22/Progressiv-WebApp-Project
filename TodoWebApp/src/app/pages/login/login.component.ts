@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class LoginComponent implements OnInit{
   email = new FormControl('', Validators.required);
-  password = new FormControl('', Validators.required);
+  password = new FormControl('', Validators.email);
   constructor(private router: Router, private authService: AuthService) {}
   ngOnInit(): void {}
 
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit{
         this.router.navigateByUrl('/main');
       })
       .catch((error) => {
+        alert("Nem megfelelő email vagy jelszó!")
         console.error(error);
       });
   }

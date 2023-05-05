@@ -12,8 +12,8 @@ import { User } from 'src/app/shared/models/user';
 export class SignupComponent {
   signupForm = new FormGroup({
     username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.minLength(6)),
+    email: new FormControl('', Validators.email),
   });
   constructor(
     private router: Router,
@@ -43,12 +43,13 @@ export class SignupComponent {
             console.log('Sikeres regisztráció');
           })
           .catch((error) => {
-            alert("Hiba történt a regisztráció során!");
+            alert("Hiba történt a regisztráció során");
             console.log(error);
           }); 
         this.router.navigateByUrl('/main');
       })
       .catch((error) => {
+        alert("Nem megfelelő adatok, jelszó minimum 6 karakter hosszú!");
         console.log(error);
       });
   }
