@@ -22,7 +22,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/profil/profil.module').then((m) => m.ProfilModule),
   },
-
   {
     path: 'not-found',
     loadChildren: () =>
@@ -32,11 +31,6 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/main',
-    pathMatch: 'full',
-  },
-  {
-    path: '/',
     redirectTo: '/main',
     pathMatch: 'full',
   },
