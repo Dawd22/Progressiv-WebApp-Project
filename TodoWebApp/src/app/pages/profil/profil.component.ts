@@ -18,21 +18,30 @@ export class ProfilComponent implements OnInit {
     description: new FormControl('', Validators.required),
     deadline: new FormControl('', Validators.required),
   });
+  private initialTodoData: Todo = {
+    id: '1',
+    title: 'Bevásárlás',
+    description: 'Menni a boltba és venni egy csomag tejet',
+    completed: false,
+    user_email: 'teszt@teszt.com',
+    deadline: new Timestamp(1000, 100),
+  };
   private userEmail: Observable<string | null>;
   public add = false;
+  public setting = false;
   public todos: Observable<Todo[]>;
   public todos$: Observable<Todo[]>;
+  public todo$: Todo = this.initialTodoData;
   constructor(
     private todoService: TodoService,
     private authService: AuthService,
     private router: Router,
     private afs: AngularFirestore
   ) {
-
     const todo: Todo = {
       id: '',
-      title: "title",
-      description:" description",
+      title: 'title',
+      description: ' description',
       completed: false,
       user_email: '',
       deadline: new Timestamp(new Date().getTime() / 1000, 0),
@@ -111,6 +120,15 @@ export class ProfilComponent implements OnInit {
   changeAddTodo(): void {
     this.add = !this.add;
   }
+  changeSettingTodo(id: string): void {
+    this.setting = !this.setting;
+    const sub = this.todoService.getById(id).subscribe((todo) => {
+      if (todo) {
+        this.todo$ = todo;
+        sub.unsubscribe();
+      }
+    });
+  }
   changeCompletedTodo(id: string): void {
     const sub = this.todoService.getById(id).subscribe((todo) => {
       if (todo) {
@@ -121,7 +139,17 @@ export class ProfilComponent implements OnInit {
       }
     });
   }
-
+  saveTodoSetting(): void {
+    this.todoService
+      .update(this.todo$)
+      .then(() => {
+        alert('Sikeres frissítés');
+        this.changeSettingTodo(this.todo$.id);
+      })
+      .catch(() => {
+        alert('Hiba történt frissítés során!');
+      });
+  }
   deleteTodo(id: string): void {
     this.todoService
       .delete(id)
@@ -132,5 +160,4 @@ export class ProfilComponent implements OnInit {
         alert('Hiba történt!');
       });
   }
-
 }
