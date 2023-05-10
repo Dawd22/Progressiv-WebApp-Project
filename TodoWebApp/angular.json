@@ -54,7 +54,8 @@
                 }
               ],
               "serviceWorker": true,
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "ngswConfigPath": "ngsw-config.json"
             },
             "development": {
               "buildOptimizer": false,
@@ -69,7 +70,9 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ],
-              "serviceWorker": true
+              "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
+
             }
           },
           "defaultConfiguration": "production"

@@ -26,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('/ngsw-worker.js',{enabled: environment.production}),
+    ServiceWorkerModule.register('ngsw-worker.js',{enabled: environment.production }),
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -41,9 +41,6 @@ import { HttpClientModule } from '@angular/common/http';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    ServiceWorkerModule.register('/ngsw-worker.js', {
-      enabled: environment.production,
-    })
   ],
   providers: [],
   bootstrap: [AppComponent]
