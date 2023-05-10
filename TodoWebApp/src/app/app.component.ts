@@ -10,7 +10,7 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent {
   title = 'TodoWebApp';
   loggedInUser?: firebase.default.User | null;
-  constructor(private authService: AuthService ){}
+  constructor(private authService: AuthService){}
 
   ngOnInit(): void {
     this.authService.isUserLoggedIn().subscribe(

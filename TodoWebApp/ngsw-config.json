@@ -7,6 +7,7 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
+          "/**/*.html",
           "/favicon.ico",
           "/index.html",
           "/manifest.webmanifest",
@@ -39,6 +40,17 @@
         "timeout": "30s",
         "strategy": "freshness"
       }
-    }
+    },
+    {
+      "name": "html",
+      "urls": [
+        "**/*.html"
+      ],
+      "version": 1,
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "1d",
+        "timeout": "5s"
+      }}
   ]
 }
