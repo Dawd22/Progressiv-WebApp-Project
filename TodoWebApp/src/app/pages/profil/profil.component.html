@@ -5,9 +5,71 @@
   </button>
 
   <br />
-  
+  <h1>Feladatok</h1>
   <div *ngIf="!setting" class="card-container">
     <div id="card" *ngFor="let item of todos$ | async">
+      <div *ngIf ="!item.completed">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ item.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table>
+            <colgroup>
+              <col style="width: 40%" />
+              <col style="width: 60%" />
+            </colgroup>
+            <br />
+            <tr>
+              <td><strong>Leírás:</strong></td>
+              <td>{{ item.description }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Határidő:</strong></td>
+              <td>{{ item.deadline | timetoDate }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Teljesített:</strong></td>
+              <td *ngIf="item.completed">Készen van</td>
+              <td *ngIf="!item.completed">Nincs kész</td>
+              <td></td>
+            </tr>
+          </table>
+
+          <div id="button_container">
+            <button
+              mat-mini-fab
+              color="accent"
+              (click)="changeCompletedTodo(item.id)"
+            >
+              <mat-icon>check_circle</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" (click)="deleteTodo(item.id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="primary"
+              (click)="changeSettingTodo(item.id)"
+            >
+              <mat-icon>settings</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+<div *ngIf="!setting">
+  <h1 >Elkészült feladatok</h1>
+  <br>
+    <div id="card" class="card-container" *ngFor="let item of todos$ | async">
+      <div *ngIf ="item.completed">
       <mat-card>
         <mat-card-header>
           <mat-card-title>{{ item.title }}</mat-card-title>
@@ -60,7 +122,8 @@
         </mat-card-content>
       </mat-card>
     </div>
-  </div>
+    </div>
+</div>
 </div>
 
 <!--Setting cuccos-->
