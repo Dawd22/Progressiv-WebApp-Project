@@ -19,6 +19,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,6 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js',{enabled: environment.production, 
     registrationStrategy: 'registerWhenStable:30000'
-    
     }),
     BrowserAnimationsModule,
     MatSidenavModule,

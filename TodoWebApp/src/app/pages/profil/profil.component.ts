@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
@@ -7,6 +7,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { TodoService } from 'src/app/shared/services/todo.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Timestamp } from '@angular/fire/firestore';
+import { IndexDbService } from 'src/app/shared/services/index-db.service';
+
+
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
@@ -36,8 +39,10 @@ export class ProfilComponent implements OnInit {
     private todoService: TodoService,
     private authService: AuthService,
     private router: Router,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private indexedDBService: IndexDbService
   ) {
+  
     const todo: Todo = {
       id: '',
       title: 'title',
@@ -46,29 +51,38 @@ export class ProfilComponent implements OnInit {
       user_email: '',
       deadline: new Timestamp(new Date().getTime() / 1000, 0),
     };
-
     this.todos = this.todoService.getAll();
     this.todos$ = this.todoService.getAll();
     this.userEmail = this.authService.getCurrentUserEmail();
+    
   }
 
   ngOnInit(): void {
-    const emailSub = this.userEmail.subscribe((email) => {
-      this.todos = this.todoService.getTodosByUserEmail(email || '');
-      this.todos
-        .pipe(
-          map((todo) =>
-            todo.sort(
-              (a, b) =>
-                a.deadline.toDate().getTime() - b.deadline.toDate().getTime()
+
+      const emailSub = this.userEmail.subscribe((email) => {
+        this.todos = this.todoService.getTodosByUserEmail(email || '');
+        this.todos
+          .pipe(
+            map((todo) =>
+              todo.sort(
+                (a, b) =>
+                  a.deadline.toDate().getTime() - b.deadline.toDate().getTime()
+              )
             )
           )
-        )
-        .subscribe((sorted) => {
-          this.todos$ = of(sorted);
-        });
-      emailSub.unsubscribe();
-    });
+          .subscribe((sorted) => {
+            this.todos$ = of(sorted);
+          });
+      this.indexedDBService.addTodos(this.todos$, email || '').then(() =>{
+            console.log("Hozzá lett adva!");
+          }).catch(()=>{
+            console.log("Vmi hiba van!");
+          });
+        emailSub.unsubscribe();
+      });  
+
+    this.todos$ = this.indexedDBService.getAllTodos();
+    
   }
 
   onSubmit() {
