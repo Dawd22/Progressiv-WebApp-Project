@@ -58,7 +58,9 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+      if(!navigator.onLine){
+        this.todos$ = this.indexedDBService.getAllTodos();
+      }
       const emailSub = this.userEmail.subscribe((email) => {
         this.todos = this.todoService.getTodosByUserEmail(email || '');
         this.todos
@@ -81,7 +83,6 @@ export class ProfilComponent implements OnInit {
         emailSub.unsubscribe();
       });  
 
-    this.todos$ = this.indexedDBService.getAllTodos();
     
   }
 

@@ -10,7 +10,6 @@ export class IndexDbService {
 
   constructor() {
     const request = indexedDB.open('todo_db', 2);
-    
     request.onerror = (event) => {
       console.error('IndexedDB error:', (event.target as IDBOpenDBRequest).error);
     };
@@ -35,21 +34,22 @@ export class IndexDbService {
         const store = transaction.objectStore('todos');
         filteredTodos.forEach(todo => store.add(todo));
         transaction.oncomplete = () => {
-          resolve(); // resolve the promise when the transaction is complete
+          resolve(); 
         };
         transaction.onerror = (event) => {
-          reject((event.target as IDBOpenDBRequest).error); // reject the promise if there's an error
+          reject((event.target as IDBOpenDBRequest).error); 
         };
       });
     });
   }
 
   getAllTodos(): Observable<Todo[]> {
+
     const transaction = (this.db as IDBDatabase).transaction(['todos'], 'readonly');
     const store = transaction.objectStore('todos');
-  
-    const request = store.getAll();
     console.log("alma")
+
+    const request = store.getAll();
     return new Observable(observer => {
       request.onsuccess = (event) => {
         observer.next(request.result as Todo[]);
