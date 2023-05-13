@@ -78,11 +78,11 @@ export class IndexDbService {
     store.put(todo);
   }
 
-  deleteTodo(todo: Todo) {
+  deleteTodo(id:string) {
     const transaction = (this.db as IDBDatabase).transaction(['todos'], 'readwrite');
     const store = transaction.objectStore('todos');
 
-    store.delete(todo.id);
+    store.delete(id);
   }
 
 }

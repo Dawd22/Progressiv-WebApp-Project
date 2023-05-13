@@ -30,6 +30,7 @@ export class ProfilComponent implements OnInit {
     user_email: 'teszt@teszt.com',
     deadline: new Timestamp(1000, 100),
   };
+  
   private userEmail: Observable<string | null>;
   public add = false;
   public setting = false;
@@ -116,6 +117,7 @@ export class ProfilComponent implements OnInit {
         };
         if (!(todo.deadline.toDate() < new Date())) {
           todo.id = this.afs.createId();
+          this.indexedDBService.updateTodo(todo);
           this.todoService
             .create(todo)
             .then((_) => {
@@ -169,10 +171,12 @@ export class ProfilComponent implements OnInit {
       });
   }
   deleteTodo(id: string): void {
+    this.indexedDBService.deleteTodo(id);
     this.todoService
       .delete(id)
       .then(() => {
         alert('Sikeres törlés!');
+        
       })
       .catch(() => {
         alert('Hiba történt!');
