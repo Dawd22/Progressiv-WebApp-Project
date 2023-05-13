@@ -16,6 +16,7 @@ import { IndexDbService } from 'src/app/shared/services/index-db.service';
   styleUrls: ['./profil.component.scss'],
 })
 export class ProfilComponent implements OnInit {
+  public online: boolean = navigator.onLine;
   todoForm = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -60,7 +61,9 @@ export class ProfilComponent implements OnInit {
   ngOnInit(): void {
       if(!navigator.onLine){
         this.todos$ = this.indexedDBService.getAllTodos();
+        
       }
+      else{
       const emailSub = this.userEmail.subscribe((email) => {
         this.todos = this.todoService.getTodosByUserEmail(email || '');
         this.todos
@@ -81,7 +84,7 @@ export class ProfilComponent implements OnInit {
             console.log("Vmi hiba van!");
           });
         emailSub.unsubscribe();
-      });  
+      });  }
 
     
   }

@@ -1,3 +1,4 @@
+<div *ngIf="online">
 <div id="todo" *ngIf="!add && !setting" class="todo-container">
   <button mat-raised-button color="primary" (click)="changeAddTodo()">
     <span>Új feladat hozzáadása</span>
@@ -27,7 +28,7 @@
             </tr>
             <tr>
               <td><strong>Határidő:</strong></td>
-              <td>{{ item.deadline | timetoDate }}</td>
+              <td>{{ item.deadline | timetoDate}}</td>
               <td></td>
             </tr>
             <tr>
@@ -125,7 +126,7 @@
     </div>
 </div>
 </div>
-
+<!--| timetoDate -->
 <!--Setting cuccos-->
 <div *ngIf="setting" id = "todo">
   <div id = "card" class = "card-container">
@@ -187,3 +188,198 @@
     </button>
   </form>
 </div>
+</div>
+
+<div *ngIf="!online">
+  <div id="todo" *ngIf="!add && !setting" class="todo-container">
+    <button mat-raised-button color="primary" (click)="changeAddTodo()">
+      <span>Új feladat hozzáadása</span>
+      <mat-icon>add_box</mat-icon>
+    </button>
+  
+    <br />
+    <h1>Feladatok</h1>
+    <div *ngIf="!setting" class="card-container">
+      <div id="card" *ngFor="let item of todos$ | async">
+        <div *ngIf ="!item.completed">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ item.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <table>
+              <colgroup>
+                <col style="width: 40%" />
+                <col style="width: 60%" />
+              </colgroup>
+              <br />
+              <tr>
+                <td><strong>Leírás:</strong></td>
+                <td>{{ item.description }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><strong>Határidő:</strong></td>
+                <td>ismeretlen</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><strong>Teljesített:</strong></td>
+                <td *ngIf="item.completed">Készen van</td>
+                <td *ngIf="!item.completed">Nincs kész</td>
+                <td></td>
+              </tr>
+            </table>
+  
+            <div id="button_container">
+              <button
+                mat-mini-fab
+                color="accent"
+                (click)="changeCompletedTodo(item.id)"
+              >
+                <mat-icon>check_circle</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" (click)="deleteTodo(item.id)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+              <button
+                mat-mini-fab
+                color="primary"
+                (click)="changeSettingTodo(item.id)"
+              >
+                <mat-icon>settings</mat-icon>
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      </div>
+    </div>
+  
+    <br>
+    <br>
+  <div *ngIf="!setting">
+    <h1 >Elkészült feladatok</h1>
+    <br>
+      <div id="card" class="card-container" *ngFor="let item of todos$ | async">
+        <div *ngIf ="item.completed">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ item.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <table>
+              <colgroup>
+                <col style="width: 30%" />
+                <col style="width: 40%" />
+                <col style="width: 30%" />
+              </colgroup>
+              <br />
+              <tr>
+                <td><strong>Leírás:</strong></td>
+                <td>{{ item.description }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><strong>Határidő:</strong></td>
+                <td>ismeretlen</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><strong>Teljesített:</strong></td>
+                <td *ngIf="item.completed">Készen van</td>
+                <td *ngIf="!item.completed">Nincs kész</td>
+                <td></td>
+              </tr>
+            </table>
+  
+            <div id="button_container">
+              <button
+                mat-mini-fab
+                color="accent"
+                (click)="changeCompletedTodo(item.id)"
+              >
+                <mat-icon>check_circle</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" (click)="deleteTodo(item.id)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+              <button
+                mat-mini-fab
+                color="primary"
+                (click)="changeSettingTodo(item.id)"
+              >
+                <mat-icon>settings</mat-icon>
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      </div>
+  </div>
+  </div>
+  <!--| timetoDate -->
+  <!--Setting cuccos-->
+  <div *ngIf="setting" id = "todo">
+    <div id = "card" class = "card-container">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <mat-form-field>
+              <mat-label>Cím</mat-label>
+              <input matInput type="text" [(ngModel)]="todo$.title" name="title" required>
+            </mat-form-field>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field>
+              <mat-label>Leírás</mat-label>
+              <textarea matInput  [(ngModel)]="todo$.description" name="description" required rows="8">
+              </textarea>
+            </mat-form-field>
+          <div id="button_container">
+            <button mat-mini-fab color="accent" (click)="saveTodoSetting()">
+              <mat-icon>check_circle</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" (click)="changeSettingTodo(todo$.id)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
+  <!-- 
+      Todo hozzáadása cuccos
+  -->
+  <div id="todo" *ngIf="add">
+    <h1>Todo hozzáadás</h1>
+    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label for="title">Feladat megnevezése</mat-label>
+        <input matInput type="text" formControlName="title" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="description">Feladat leírás</mat-label>
+        <textarea
+          matInput
+          placeholder="Leírás"
+          formControlName="description"
+          rows="8"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="deadline">Határidő</mat-label>
+        <input matInput type="date" formControlName="deadline" />
+      </mat-form-field>
+      <button mat-raised-button>Hozzáadás</button>
+      <br />
+      <button mat-raised-button color="primary" (click)="changeAddTodo()">
+        <span>Mégse</span>
+      </button>
+    </form>
+  </div>
+  </div>
+  
+  

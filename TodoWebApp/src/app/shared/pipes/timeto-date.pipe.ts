@@ -8,13 +8,10 @@ import { Timestamp } from '@angular/fire/firestore';
 })
 export class TimetoDatePipe implements PipeTransform {
 
-  transform(value: Timestamp): string {
+  transform(value: Timestamp ): string  {
     const dateValue = value instanceof Date ? Timestamp.fromDate(value) : value;
     const dateString = dateValue.toDate().toString();
     const trimmedDate = dateString.replace(/00:00:00 GMT.+$/, '');
     return trimmedDate;
-  
-  }
-
-
+}
 }
